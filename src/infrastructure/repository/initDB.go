@@ -2,15 +2,14 @@ package repository
 
 import (
 	"fmt"
-	"github.com/gbrayhan/microservices-go/src/infrastructure/repository/medicine"
-	"github.com/gbrayhan/microservices-go/src/infrastructure/repository/user"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 	"log"
 	"os"
 	"strconv"
 	"time"
+
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 func InitDB() (*gorm.DB, error) {
@@ -49,10 +48,10 @@ func InitDB() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	if err = db.AutoMigrate(&user.User{}, &medicine.Medicine{}); err != nil {
-		log.Printf("Error auto-migrating database schema: %v", err)
-		return nil, err
-	}
+	//if err = db.AutoMigrate(); err != nil {
+	//	log.Printf("Error auto-migrating database schema: %v", err)
+	//	return nil, err
+	//}
 
 	return db, nil
 }
