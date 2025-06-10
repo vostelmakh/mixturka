@@ -21,4 +21,9 @@ CREATE TABLE recipes_ingredients (
 );
 
 CREATE INDEX idx_recipe_id ON recipes_ingredients(recipe_id);
-CREATE INDEX idx_ingredient_id ON recipes_ingredients(ingredient_id); 
+CREATE INDEX idx_ingredient_id ON recipes_ingredients(ingredient_id);
+
+-- +goose Down
+DROP TABLE IF EXISTS recipes;
+DROP TABLE IF EXISTS ingredients;
+DROP TABLE IF EXISTS recipes_ingredients;
