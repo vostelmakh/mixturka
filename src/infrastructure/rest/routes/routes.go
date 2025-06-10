@@ -4,10 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
-func ApplicationRouter(router *gin.Engine, db *gorm.DB) {
+func ApplicationRouter(router *gin.Engine) {
 	v1 := router.Group("/v1")
 
 	v1.GET("/version", func(c *gin.Context) {
