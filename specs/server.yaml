@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: Mixturka
+  description: Mixturka service by Anatoly Denezhny
+servers:
+  - url: '{url}/{apiVersion}/'
+    x-ogen-server-name: host
+    variables:
+      url:
+        default: "https://mixturka.lamoda.tech/jsonrpc"
+      environment:
+        default: production
+      apiVersion:
+        default: "v1"
+
+paths:
+  /jsonrpc/v1/recipes/list:
+    x-ogen-operation-group: Recipes
+    post:
+      tags:
+        - jsonrpc2
+      description: Get list of all recipes
+      operationId: recipes.list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/BaseRequest"
+                - $ref: "#/components/schemas/RecipesListRequest"
+      responses:
+        200:
+          description: Result list of all recipes
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - $ref: "#/components/schemas/RecipesListResult"
+
+  /jsonrpc/v1/pot/brew:
+    x-ogen-operation-group: PotBrew
+    post:
+      tags:
+        - jsonrpc2
+      description: Start to make a brew
+      operationId: pot.brew
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/BaseRequest"
+                - $ref: "#/components/schemas/PotBrewRequest"
+      responses:
+        200:
+          description: Result list of all recipes
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BaseResponse"
+                  - $ref: "#/components/schemas/PotBrewResult"
+
+components:
+  schemas:
+    BaseRequest:
+      type: object
+      required:
+        - jsonrpc
+        - id
+        - method
+      properties:
+        jsonrpc:
+          type: string
+          example: "2.0"
+          pattern: 2\.0
+          x-nullable: false
+        id:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+          x-nullable: false
+          minLength: 36
+          maxLength: 36
+        method:
+          type: string
+          example: "method.name"
+          x-nullable: false
+
+    BaseResponse:
+      type: object
+      required:
+        - jsonrpc
+        - id
+      properties:
+        jsonrpc:
+          type: string
+        id:
+          type: string
+        error:
+          $ref: "#/components/schemas/Error"
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          description: Human readable error description for debug usage
+          type: string
+        data:
+          type: object
+          description: Arbitrary additional error-related data
+      example:
+        code: 0
+        message: "string"
+        data: {}
+
+    RecipesListRequest:
+      type: object
+      required:
+        - params
+      properties:
+        params:
+          type: object
+          properties:
+            ingredients_filter:
+              type: array
+              items:
+                type: string
+
+    RecipesListResult:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          $ref: "#/components/schemas/RecipesList"
+
+    RecipesList:
+      type: object
+      required:
+        - recipes
+      properties:
+        recipes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Recipe"
+
+    PotBrewRequest:
+      type: object
+      required:
+        - params
+      properties:
+        params:
+          type: object
+          required:
+            - ingredients
+          properties:
+            ingredients:
+              type: array
+              items:
+                $ref: "#/components/schemas/Ingredient"
+
+    PotBrewResult:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          $ref: "#/components/schemas/BrewStarted"
+
+    BrewStarted:
+      type: object
+      required:
+        - started
+      properties:
+        started:
+          type: boolean
+
+    Recipe:
+      type: object
+      required:
+        - name
+        - ingredients
+      properties:
+        name:
+          type: string
+          example: "Saviour Schnapps"
+        ingredients:
+          type: array
+          example:
+            - name: nettle
+              quantity: 1
+            - name: belladonna
+              quantity: 2
+          items:
+            $ref: "#/components/schemas/Ingredient"
+
+    Ingredient:
+      type: object
+      required:
+        - name
+        - quantity
+      x-nullable: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+        quantity:
+          type: integer
+          minimum: 1
+          maximum: 10
