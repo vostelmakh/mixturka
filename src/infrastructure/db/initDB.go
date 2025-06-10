@@ -1,6 +1,7 @@
-package repository
+package db
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"os"
@@ -12,7 +13,7 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-func InitDB() (*gorm.DB, error) {
+func InitDB() (*sql.DB, error) {
 	dbHost := getEnv("DB_HOST", "localhost")
 	dbPort := getEnv("DB_PORT", "5432")
 	dbUser := getEnv("DB_USER", "postgres")
@@ -48,12 +49,7 @@ func InitDB() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	//if err = db.AutoMigrate(); err != nil {
-	//	log.Printf("Error auto-migrating database schema: %v", err)
-	//	return nil, err
-	//}
-
-	return db, nil
+	return sqlDB, nil
 }
 
 func getEnv(key string, defaultVal string) string {
