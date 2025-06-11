@@ -9,6 +9,8 @@ import (
 	"github.com/gbrayhan/microservices-go/src/application/processor"
 )
 
+const TopicBabushkaRecipeV1 = "babushka.recipes.v1"
+
 type Consumer struct {
 	consumer  sarama.Consumer
 	processor *processor.RecipeProcessor
@@ -16,6 +18,7 @@ type Consumer struct {
 }
 
 func NewConsumer(brokers []string, topic string, processor *processor.RecipeProcessor) (*Consumer, error) {
+
 	config := sarama.NewConfig()
 	config.Consumer.Return.Errors = true
 
