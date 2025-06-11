@@ -17,13 +17,13 @@ If you would still prefer to do the installation manually, follow these steps:
 Clone the repo:
 
 ```bash
-git clone https://github.com/gbrayhan/microservices-go
+git clone https://github.com/vostelmakh/mixturka
 ```
 
 
 **TL;DR command list**
 
-    git clone https://github.com/gbrayhan/microservices-go
+    git clone https://github.com/vostelmakh/mixturka
     cd microservices-go
     cp .env.example .env
     docker-compose up  --build  -d

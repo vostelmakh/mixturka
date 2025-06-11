@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/gbrayhan/microservices-go/src/domain"
-	"github.com/gbrayhan/microservices-go/src/infrastructure/repository"
+	"github.com/vostelmakh/mixturka/src/domain"
+	"github.com/vostelmakh/mixturka/src/infrastructure/repository"
 )
 
 type RecipeProcessor struct {

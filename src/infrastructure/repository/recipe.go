@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/gbrayhan/microservices-go/src/domain"
+	"github.com/vostelmakh/mixturka/src/domain"
 )
 
 type RecipeRepository struct {

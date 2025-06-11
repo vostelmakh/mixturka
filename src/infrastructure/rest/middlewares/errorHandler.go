@@ -2,9 +2,11 @@ package middlewares
 
 import (
 	"errors"
-	domainErrors "github.com/gbrayhan/microservices-go/src/domain/errors"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	domainErrors "github.com/vostelmakh/mixturka/src/domain/errors"
 )
 
 func ErrorHandler() gin.HandlerFunc {

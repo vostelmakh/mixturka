@@ -14,12 +14,12 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
-	"github.com/gbrayhan/microservices-go/src/application/processor"
-	"github.com/gbrayhan/microservices-go/src/infrastructure/db"
-	"github.com/gbrayhan/microservices-go/src/infrastructure/kafka"
-	"github.com/gbrayhan/microservices-go/src/infrastructure/repository"
-	"github.com/gbrayhan/microservices-go/src/infrastructure/rest/middlewares"
-	"github.com/gbrayhan/microservices-go/src/infrastructure/rest/routes"
+	"github.com/vostelmakh/mixturka/src/application/processor"
+	"github.com/vostelmakh/mixturka/src/infrastructure/db"
+	"github.com/vostelmakh/mixturka/src/infrastructure/kafka"
+	"github.com/vostelmakh/mixturka/src/infrastructure/repository"
+	"github.com/vostelmakh/mixturka/src/infrastructure/rest/middlewares"
+	"github.com/vostelmakh/mixturka/src/infrastructure/rest/routes"
 )
 
 func main() {

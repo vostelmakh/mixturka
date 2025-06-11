@@ -6,7 +6,7 @@ import (
 
 	"github.com/IBM/sarama"
 
-	"github.com/gbrayhan/microservices-go/src/application/processor"
+	"github.com/vostelmakh/mixturka/src/application/processor"
 )
 
 const TopicBabushkaRecipeV1 = "babushka.recipes.v1"
