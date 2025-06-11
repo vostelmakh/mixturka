@@ -67,7 +67,7 @@ services:
       - .env
     ports:
       - "8080:8080" # http default port
-      - "50051:50051" # gRPC default port
+      - "50051:50051" # grpc default port
     depends_on:
       postgres:
         condition: service_healthy

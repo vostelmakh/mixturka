@@ -4,7 +4,7 @@
 // - protoc             v5.29.3
 // source: mixturka.proto
 
-package __
+package grpc
 
 import (
 	context "context"
@@ -19,16 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Mixturka_ListRecipes_FullMethodName = "/mixturka.Mixturka/ListRecipes"
-	Mixturka_BrewPot_FullMethodName     = "/mixturka.Mixturka/BrewPot"
+	Mixturka_GetRecipes_FullMethodName = "/mixturka.Mixturka/GetRecipes"
+	Mixturka_BrewPot_FullMethodName    = "/mixturka.Mixturka/BrewPot"
 )
 
 // MixturkaClient is the client API for Mixturka service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MixturkaClient interface {
-	// ListRecipes retrieves a list of all recipes, optionally filtered by ingredients.
-	ListRecipes(ctx context.Context, in *RecipesListRequest, opts ...grpc.CallOption) (*RecipesListResponse, error)
+	// GetRecipes retrieves a list of all recipes
+	GetRecipes(ctx context.Context, in *GetRecipesRequest, opts ...grpc.CallOption) (*GetRecipesResponse, error)
 	// BrewPot starts the brewing process with the specified ingredients.
 	BrewPot(ctx context.Context, in *PotBrewRequest, opts ...grpc.CallOption) (*PotBrewResponse, error)
 }
@@ -41,10 +41,10 @@ func NewMixturkaClient(cc grpc.ClientConnInterface) MixturkaClient {
 	return &mixturkaClient{cc}
 }
 
-func (c *mixturkaClient) ListRecipes(ctx context.Context, in *RecipesListRequest, opts ...grpc.CallOption) (*RecipesListResponse, error) {
+func (c *mixturkaClient) GetRecipes(ctx context.Context, in *GetRecipesRequest, opts ...grpc.CallOption) (*GetRecipesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(RecipesListResponse)
-	err := c.cc.Invoke(ctx, Mixturka_ListRecipes_FullMethodName, in, out, cOpts...)
+	out := new(GetRecipesResponse)
+	err := c.cc.Invoke(ctx, Mixturka_GetRecipes_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,8 +65,8 @@ func (c *mixturkaClient) BrewPot(ctx context.Context, in *PotBrewRequest, opts .
 // All implementations must embed UnimplementedMixturkaServer
 // for forward compatibility.
 type MixturkaServer interface {
-	// ListRecipes retrieves a list of all recipes, optionally filtered by ingredients.
-	ListRecipes(context.Context, *RecipesListRequest) (*RecipesListResponse, error)
+	// GetRecipes retrieves a list of all recipes
+	GetRecipes(context.Context, *GetRecipesRequest) (*GetRecipesResponse, error)
 	// BrewPot starts the brewing process with the specified ingredients.
 	BrewPot(context.Context, *PotBrewRequest) (*PotBrewResponse, error)
 	mustEmbedUnimplementedMixturkaServer()
@@ -79,8 +79,8 @@ type MixturkaServer interface {
 // pointer dereference when methods are called.
 type UnimplementedMixturkaServer struct{}
 
-func (UnimplementedMixturkaServer) ListRecipes(context.Context, *RecipesListRequest) (*RecipesListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListRecipes not implemented")
+func (UnimplementedMixturkaServer) GetRecipes(context.Context, *GetRecipesRequest) (*GetRecipesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRecipes not implemented")
 }
 func (UnimplementedMixturkaServer) BrewPot(context.Context, *PotBrewRequest) (*PotBrewResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BrewPot not implemented")
@@ -106,20 +106,20 @@ func RegisterMixturkaServer(s grpc.ServiceRegistrar, srv MixturkaServer) {
 	s.RegisterService(&Mixturka_ServiceDesc, srv)
 }
 
-func _Mixturka_ListRecipes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RecipesListRequest)
+func _Mixturka_GetRecipes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRecipesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MixturkaServer).ListRecipes(ctx, in)
+		return srv.(MixturkaServer).GetRecipes(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Mixturka_ListRecipes_FullMethodName,
+		FullMethod: Mixturka_GetRecipes_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MixturkaServer).ListRecipes(ctx, req.(*RecipesListRequest))
+		return srv.(MixturkaServer).GetRecipes(ctx, req.(*GetRecipesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -150,8 +150,8 @@ var Mixturka_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*MixturkaServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ListRecipes",
-			Handler:    _Mixturka_ListRecipes_Handler,
+			MethodName: "GetRecipes",
+			Handler:    _Mixturka_GetRecipes_Handler,
 		},
 		{
 			MethodName: "BrewPot",

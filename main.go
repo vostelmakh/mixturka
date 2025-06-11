@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"os/signal"
@@ -13,9 +14,13 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc"
 
-	"github.com/vostelmakh/mixturka/src/application/processor"
+	"github.com/vostelmakh/mixturka/src/application/processor/brew"
+	"github.com/vostelmakh/mixturka/src/application/processor/recipe"
+	"github.com/vostelmakh/mixturka/src/application/server"
 	"github.com/vostelmakh/mixturka/src/infrastructure/db"
+	mixturkaGrpc "github.com/vostelmakh/mixturka/src/infrastructure/grpc"
 	"github.com/vostelmakh/mixturka/src/infrastructure/kafka"
 	"github.com/vostelmakh/mixturka/src/infrastructure/repository"
 	"github.com/vostelmakh/mixturka/src/infrastructure/rest/middlewares"
@@ -57,11 +62,36 @@ func main() {
 		}
 	}()
 
-	log.Println("Start loading kafka brokers...")
+	// Инициализация grpc сервера
+	grpcPort := os.Getenv("GRPC_PORT")
+	if grpcPort == "" {
+		grpcPort = "50051"
+	}
 
+	lis, err := net.Listen("tcp", ":"+grpcPort)
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+
+	// Инициализация процессоров
 	repo := repository.NewRecipeRepository(database)
 
-	recipeProcessor := processor.NewRecipeProcessor(repo)
+	recipeProcessor := recipe.NewRecipeProcessor(repo)
+	brewProcessor := brew.NewGRPCProcessor(repo)
+
+	// Инициализация gRPC сервера
+	grpcServer := grpc.NewServer()
+	mixturkaServer := server.NewMixturkaServer(recipeProcessor, brewProcessor)
+	mixturkaGrpc.RegisterMixturkaServer(grpcServer, mixturkaServer)
+
+	go func() {
+		fmt.Printf("grpc server running at localhost:%s\n", grpcPort)
+		if err := grpcServer.Serve(lis); err != nil {
+			log.Fatalf("failed to serve: %v", err)
+		}
+	}()
+
+	log.Println("Start loading kafka brokers...")
 
 	kafkaHost := os.Getenv("KAFKA_HOST")
 	kafkaPort := os.Getenv("KAFKA_PORT")
@@ -88,4 +118,6 @@ func main() {
 	<-sigChan
 
 	log.Println("Shutting down...")
+
+	grpcServer.GracefulStop()
 }

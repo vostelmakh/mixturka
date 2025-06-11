@@ -52,3 +52,59 @@ func (r *RecipeRepository) SaveRecipe(ctx context.Context, recipe *domain.Recipe
 
 	return tx.Commit()
 }
+
+func (r *RecipeRepository) GetRecipes(ctx context.Context) ([]domain.Recipe, error) {
+	query := `
+		SELECT r.id, r.name, i.id, i.name, i.quantity
+		FROM recipes r
+		LEFT JOIN recipes_ingredients ri ON r.id = ri.recipe_id
+		LEFT JOIN ingredients i ON ri.ingredient_id = i.id
+		ORDER BY r.id, i.id
+	`
+
+	rows, err := r.db.QueryContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	recipes := make(map[int64]domain.Recipe)
+	for rows.Next() {
+		var recipeID int64
+		var recipeName string
+		var ingredientID sql.NullInt64
+		var ingredientName sql.NullString
+		var quantity sql.NullInt32
+
+		err := rows.Scan(&recipeID, &recipeName, &ingredientID, &ingredientName, &quantity)
+		if err != nil {
+			return nil, err
+		}
+
+		recipe, exists := recipes[recipeID]
+		if !exists {
+			recipe = domain.Recipe{
+				ID:          recipeID,
+				Name:        recipeName,
+				Ingredients: make([]domain.Ingredient, 0),
+			}
+
+			recipes[recipeID] = recipe
+		}
+
+		if ingredientID.Valid && ingredientName.Valid && quantity.Valid {
+			recipe.Ingredients = append(recipe.Ingredients, domain.Ingredient{
+				ID:       ingredientID.Int64,
+				Name:     ingredientName.String,
+				Quantity: int(quantity.Int32),
+			})
+		}
+	}
+
+	result := make([]domain.Recipe, 0, len(recipes))
+	for _, recipe := range recipes {
+		result = append(result, recipe)
+	}
+
+	return result, nil
+}

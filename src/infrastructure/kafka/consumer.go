@@ -6,18 +6,18 @@ import (
 
 	"github.com/IBM/sarama"
 
-	"github.com/vostelmakh/mixturka/src/application/processor"
+	"github.com/vostelmakh/mixturka/src/application/processor/recipe"
 )
 
 const TopicBabushkaRecipeV1 = "babushka.recipes.v1"
 
 type Consumer struct {
 	consumer  sarama.Consumer
-	processor *processor.RecipeProcessor
+	processor *recipe.Processor
 	topic     string
 }
 
-func NewConsumer(brokers []string, topic string, processor *processor.RecipeProcessor) (*Consumer, error) {
+func NewConsumer(brokers []string, topic string, processor *recipe.Processor) (*Consumer, error) {
 
 	config := sarama.NewConfig()
 	config.Consumer.Return.Errors = true

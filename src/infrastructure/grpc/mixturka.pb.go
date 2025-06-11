@@ -4,7 +4,7 @@
 // 	protoc        v5.29.3
 // source: mixturka.proto
 
-package __
+package grpc
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -21,74 +21,65 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Request to list recipes
-type RecipesListRequest struct {
-	state             protoimpl.MessageState `protogen:"open.v1"`
-	IngredientsFilter []string               `protobuf:"bytes,1,rep,name=ingredients_filter,json=ingredientsFilter,proto3" json:"ingredients_filter,omitempty"` // List of ingredient names to filter recipes
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
-}
-
-func (x *RecipesListRequest) Reset() {
-	*x = RecipesListRequest{}
-	mi := &file_mixturka_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *RecipesListRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RecipesListRequest) ProtoMessage() {}
-
-func (x *RecipesListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mixturka_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RecipesListRequest.ProtoReflect.Descriptor instead.
-func (*RecipesListRequest) Descriptor() ([]byte, []int) {
-	return file_mixturka_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *RecipesListRequest) GetIngredientsFilter() []string {
-	if x != nil {
-		return x.IngredientsFilter
-	}
-	return nil
-}
-
-// Response for listing recipes
-type RecipesListResponse struct {
+// Request to get recipes
+type GetRecipesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Recipes       []*Recipe              `protobuf:"bytes,1,rep,name=recipes,proto3" json:"recipes,omitempty"` // List of recipes
-	Error         *Error                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`     // Error details, if any
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *RecipesListResponse) Reset() {
-	*x = RecipesListResponse{}
+func (x *GetRecipesRequest) Reset() {
+	*x = GetRecipesRequest{}
+	mi := &file_mixturka_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRecipesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRecipesRequest) ProtoMessage() {}
+
+func (x *GetRecipesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mixturka_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRecipesRequest.ProtoReflect.Descriptor instead.
+func (*GetRecipesRequest) Descriptor() ([]byte, []int) {
+	return file_mixturka_proto_rawDescGZIP(), []int{0}
+}
+
+// Response for getting recipes
+type GetRecipesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Recipes       []*Recipe              `protobuf:"bytes,1,rep,name=recipes,proto3" json:"recipes,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRecipesResponse) Reset() {
+	*x = GetRecipesResponse{}
 	mi := &file_mixturka_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *RecipesListResponse) String() string {
+func (x *GetRecipesResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*RecipesListResponse) ProtoMessage() {}
+func (*GetRecipesResponse) ProtoMessage() {}
 
-func (x *RecipesListResponse) ProtoReflect() protoreflect.Message {
+func (x *GetRecipesResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_mixturka_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -100,23 +91,138 @@ func (x *RecipesListResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use RecipesListResponse.ProtoReflect.Descriptor instead.
-func (*RecipesListResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetRecipesResponse.ProtoReflect.Descriptor instead.
+func (*GetRecipesResponse) Descriptor() ([]byte, []int) {
 	return file_mixturka_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RecipesListResponse) GetRecipes() []*Recipe {
+func (x *GetRecipesResponse) GetRecipes() []*Recipe {
 	if x != nil {
 		return x.Recipes
 	}
 	return nil
 }
 
-func (x *RecipesListResponse) GetError() *Error {
+// Recipe definition
+type Recipe struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Ingredients   []*Ingredient          `protobuf:"bytes,3,rep,name=ingredients,proto3" json:"ingredients,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Recipe) Reset() {
+	*x = Recipe{}
+	mi := &file_mixturka_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Recipe) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Recipe) ProtoMessage() {}
+
+func (x *Recipe) ProtoReflect() protoreflect.Message {
+	mi := &file_mixturka_proto_msgTypes[2]
 	if x != nil {
-		return x.Error
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Recipe.ProtoReflect.Descriptor instead.
+func (*Recipe) Descriptor() ([]byte, []int) {
+	return file_mixturka_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Recipe) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Recipe) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Recipe) GetIngredients() []*Ingredient {
+	if x != nil {
+		return x.Ingredients
 	}
 	return nil
+}
+
+// Ingredient definition
+type Ingredient struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Quantity      int32                  `protobuf:"varint,3,opt,name=quantity,proto3" json:"quantity,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Ingredient) Reset() {
+	*x = Ingredient{}
+	mi := &file_mixturka_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Ingredient) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Ingredient) ProtoMessage() {}
+
+func (x *Ingredient) ProtoReflect() protoreflect.Message {
+	mi := &file_mixturka_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Ingredient.ProtoReflect.Descriptor instead.
+func (*Ingredient) Descriptor() ([]byte, []int) {
+	return file_mixturka_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Ingredient) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Ingredient) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Ingredient) GetQuantity() int32 {
+	if x != nil {
+		return x.Quantity
+	}
+	return 0
 }
 
 // Request to start brewing
@@ -129,7 +235,7 @@ type PotBrewRequest struct {
 
 func (x *PotBrewRequest) Reset() {
 	*x = PotBrewRequest{}
-	mi := &file_mixturka_proto_msgTypes[2]
+	mi := &file_mixturka_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -141,7 +247,7 @@ func (x *PotBrewRequest) String() string {
 func (*PotBrewRequest) ProtoMessage() {}
 
 func (x *PotBrewRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mixturka_proto_msgTypes[2]
+	mi := &file_mixturka_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -154,7 +260,7 @@ func (x *PotBrewRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PotBrewRequest.ProtoReflect.Descriptor instead.
 func (*PotBrewRequest) Descriptor() ([]byte, []int) {
-	return file_mixturka_proto_rawDescGZIP(), []int{2}
+	return file_mixturka_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *PotBrewRequest) GetIngredients() []*Ingredient {
@@ -175,7 +281,7 @@ type PotBrewResponse struct {
 
 func (x *PotBrewResponse) Reset() {
 	*x = PotBrewResponse{}
-	mi := &file_mixturka_proto_msgTypes[3]
+	mi := &file_mixturka_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -187,7 +293,7 @@ func (x *PotBrewResponse) String() string {
 func (*PotBrewResponse) ProtoMessage() {}
 
 func (x *PotBrewResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mixturka_proto_msgTypes[3]
+	mi := &file_mixturka_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -200,7 +306,7 @@ func (x *PotBrewResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PotBrewResponse.ProtoReflect.Descriptor instead.
 func (*PotBrewResponse) Descriptor() ([]byte, []int) {
-	return file_mixturka_proto_rawDescGZIP(), []int{3}
+	return file_mixturka_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *PotBrewResponse) GetStarted() bool {
@@ -215,112 +321,6 @@ func (x *PotBrewResponse) GetError() *Error {
 		return x.Error
 	}
 	return nil
-}
-
-// Recipe definition
-type Recipe struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`               // Name of the recipe, e.g., "Saviour Schnapps"
-	Ingredients   []*Ingredient          `protobuf:"bytes,2,rep,name=ingredients,proto3" json:"ingredients,omitempty"` // List of ingredients required for the recipe
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Recipe) Reset() {
-	*x = Recipe{}
-	mi := &file_mixturka_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Recipe) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Recipe) ProtoMessage() {}
-
-func (x *Recipe) ProtoReflect() protoreflect.Message {
-	mi := &file_mixturka_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Recipe.ProtoReflect.Descriptor instead.
-func (*Recipe) Descriptor() ([]byte, []int) {
-	return file_mixturka_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *Recipe) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *Recipe) GetIngredients() []*Ingredient {
-	if x != nil {
-		return x.Ingredients
-	}
-	return nil
-}
-
-// Ingredient definition
-type Ingredient struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`          // Name of the ingredient, min length 1
-	Quantity      int32                  `protobuf:"varint,2,opt,name=quantity,proto3" json:"quantity,omitempty"` // Quantity of the ingredient, min 1, max 10
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Ingredient) Reset() {
-	*x = Ingredient{}
-	mi := &file_mixturka_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Ingredient) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Ingredient) ProtoMessage() {}
-
-func (x *Ingredient) ProtoReflect() protoreflect.Message {
-	mi := &file_mixturka_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Ingredient.ProtoReflect.Descriptor instead.
-func (*Ingredient) Descriptor() ([]byte, []int) {
-	return file_mixturka_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *Ingredient) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *Ingredient) GetQuantity() int32 {
-	if x != nil {
-		return x.Quantity
-	}
-	return 0
 }
 
 // Error message for gRPC responses
@@ -388,34 +388,35 @@ var File_mixturka_proto protoreflect.FileDescriptor
 
 const file_mixturka_proto_rawDesc = "" +
 	"\n" +
-	"\x0emixturka.proto\x12\bmixturka\"C\n" +
-	"\x12RecipesListRequest\x12-\n" +
-	"\x12ingredients_filter\x18\x01 \x03(\tR\x11ingredientsFilter\"h\n" +
-	"\x13RecipesListResponse\x12*\n" +
-	"\arecipes\x18\x01 \x03(\v2\x10.mixturka.RecipeR\arecipes\x12%\n" +
-	"\x05error\x18\x02 \x01(\v2\x0f.mixturka.ErrorR\x05error\"H\n" +
+	"\x0emixturka.proto\x12\bmixturka\"\x13\n" +
+	"\x11GetRecipesRequest\"@\n" +
+	"\x12GetRecipesResponse\x12*\n" +
+	"\arecipes\x18\x01 \x03(\v2\x10.mixturka.RecipeR\arecipes\"d\n" +
+	"\x06Recipe\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x126\n" +
+	"\vingredients\x18\x03 \x03(\v2\x14.mixturka.IngredientR\vingredients\"L\n" +
+	"\n" +
+	"Ingredient\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1a\n" +
+	"\bquantity\x18\x03 \x01(\x05R\bquantity\"H\n" +
 	"\x0ePotBrewRequest\x126\n" +
 	"\vingredients\x18\x01 \x03(\v2\x14.mixturka.IngredientR\vingredients\"R\n" +
 	"\x0fPotBrewResponse\x12\x18\n" +
 	"\astarted\x18\x01 \x01(\bR\astarted\x12%\n" +
-	"\x05error\x18\x02 \x01(\v2\x0f.mixturka.ErrorR\x05error\"T\n" +
-	"\x06Recipe\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x126\n" +
-	"\vingredients\x18\x02 \x03(\v2\x14.mixturka.IngredientR\vingredients\"<\n" +
-	"\n" +
-	"Ingredient\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1a\n" +
-	"\bquantity\x18\x02 \x01(\x05R\bquantity\"\x9d\x01\n" +
+	"\x05error\x18\x02 \x01(\v2\x0f.mixturka.ErrorR\x05error\"\x9d\x01\n" +
 	"\x05Error\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12-\n" +
 	"\x04data\x18\x03 \x03(\v2\x19.mixturka.Error.DataEntryR\x04data\x1a7\n" +
 	"\tDataEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012\x9a\x01\n" +
-	"\bMixturka\x12L\n" +
-	"\vListRecipes\x12\x1c.mixturka.RecipesListRequest\x1a\x1d.mixturka.RecipesListResponse\"\x00\x12@\n" +
-	"\aBrewPot\x12\x18.mixturka.PotBrewRequest\x1a\x19.mixturka.PotBrewResponse\"\x00B\x03Z\x01/b\x06proto3"
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x012\x97\x01\n" +
+	"\bMixturka\x12I\n" +
+	"\n" +
+	"GetRecipes\x12\x1b.mixturka.GetRecipesRequest\x1a\x1c.mixturka.GetRecipesResponse\"\x00\x12@\n" +
+	"\aBrewPot\x12\x18.mixturka.PotBrewRequest\x1a\x19.mixturka.PotBrewResponse\"\x00B\x1cZ\x1a../src/infrastructure/grpcb\x06proto3"
 
 var (
 	file_mixturka_proto_rawDescOnce sync.Once
@@ -431,31 +432,30 @@ func file_mixturka_proto_rawDescGZIP() []byte {
 
 var file_mixturka_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_mixturka_proto_goTypes = []any{
-	(*RecipesListRequest)(nil),  // 0: mixturka.RecipesListRequest
-	(*RecipesListResponse)(nil), // 1: mixturka.RecipesListResponse
-	(*PotBrewRequest)(nil),      // 2: mixturka.PotBrewRequest
-	(*PotBrewResponse)(nil),     // 3: mixturka.PotBrewResponse
-	(*Recipe)(nil),              // 4: mixturka.Recipe
-	(*Ingredient)(nil),          // 5: mixturka.Ingredient
-	(*Error)(nil),               // 6: mixturka.Error
-	nil,                         // 7: mixturka.Error.DataEntry
+	(*GetRecipesRequest)(nil),  // 0: mixturka.GetRecipesRequest
+	(*GetRecipesResponse)(nil), // 1: mixturka.GetRecipesResponse
+	(*Recipe)(nil),             // 2: mixturka.Recipe
+	(*Ingredient)(nil),         // 3: mixturka.Ingredient
+	(*PotBrewRequest)(nil),     // 4: mixturka.PotBrewRequest
+	(*PotBrewResponse)(nil),    // 5: mixturka.PotBrewResponse
+	(*Error)(nil),              // 6: mixturka.Error
+	nil,                        // 7: mixturka.Error.DataEntry
 }
 var file_mixturka_proto_depIdxs = []int32{
-	4, // 0: mixturka.RecipesListResponse.recipes:type_name -> mixturka.Recipe
-	6, // 1: mixturka.RecipesListResponse.error:type_name -> mixturka.Error
-	5, // 2: mixturka.PotBrewRequest.ingredients:type_name -> mixturka.Ingredient
+	2, // 0: mixturka.GetRecipesResponse.recipes:type_name -> mixturka.Recipe
+	3, // 1: mixturka.Recipe.ingredients:type_name -> mixturka.Ingredient
+	3, // 2: mixturka.PotBrewRequest.ingredients:type_name -> mixturka.Ingredient
 	6, // 3: mixturka.PotBrewResponse.error:type_name -> mixturka.Error
-	5, // 4: mixturka.Recipe.ingredients:type_name -> mixturka.Ingredient
-	7, // 5: mixturka.Error.data:type_name -> mixturka.Error.DataEntry
-	0, // 6: mixturka.Mixturka.ListRecipes:input_type -> mixturka.RecipesListRequest
-	2, // 7: mixturka.Mixturka.BrewPot:input_type -> mixturka.PotBrewRequest
-	1, // 8: mixturka.Mixturka.ListRecipes:output_type -> mixturka.RecipesListResponse
-	3, // 9: mixturka.Mixturka.BrewPot:output_type -> mixturka.PotBrewResponse
-	8, // [8:10] is the sub-list for method output_type
-	6, // [6:8] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	7, // 4: mixturka.Error.data:type_name -> mixturka.Error.DataEntry
+	0, // 5: mixturka.Mixturka.GetRecipes:input_type -> mixturka.GetRecipesRequest
+	4, // 6: mixturka.Mixturka.BrewPot:input_type -> mixturka.PotBrewRequest
+	1, // 7: mixturka.Mixturka.GetRecipes:output_type -> mixturka.GetRecipesResponse
+	5, // 8: mixturka.Mixturka.BrewPot:output_type -> mixturka.PotBrewResponse
+	7, // [7:9] is the sub-list for method output_type
+	5, // [5:7] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_mixturka_proto_init() }
