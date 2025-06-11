@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package mixturka;
+
+option go_package = "/";
+
+service Mixturka {
+  // ListRecipes retrieves a list of all recipes, optionally filtered by ingredients.
+  rpc ListRecipes(RecipesListRequest) returns (RecipesListResponse) {}
+
+  // BrewPot starts the brewing process with the specified ingredients.
+  rpc BrewPot(PotBrewRequest) returns (PotBrewResponse) {}
+}
+
+// Request to list recipes
+message RecipesListRequest {
+  repeated string ingredients_filter = 1; // List of ingredient names to filter recipes
+}
+
+// Response for listing recipes
+message RecipesListResponse {
+  repeated Recipe recipes = 1; // List of recipes
+  Error error = 2; // Error details, if any
+}
+
+// Request to start brewing
+message PotBrewRequest {
+  repeated Ingredient ingredients = 1; // List of ingredients for brewing
+}
+
+// Response for brewing process
+message PotBrewResponse {
+  bool started = 1; // Indicates if brewing started successfully
+  Error error = 2; // Error details, if any
+}
+
+// Recipe definition
+message Recipe {
+  string name = 1; // Name of the recipe, e.g., "Saviour Schnapps"
+  repeated Ingredient ingredients = 2; // List of ingredients required for the recipe
+}
+
+// Ingredient definition
+message Ingredient {
+  string name = 1; // Name of the ingredient, min length 1
+  int32 quantity = 2; // Quantity of the ingredient, min 1, max 10
+}
+
+// Error message for gRPC responses
+message Error {
+  int32 code = 1; // Error code
+  string message = 2; // Human-readable error description
+  map<string, string> data = 3; // Arbitrary additional error-related data
+}
