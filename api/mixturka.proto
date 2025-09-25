@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package mixturka;
 
-option go_package = "../src/infrastructure/grpc";
+option go_package = "../internal/infrastructure/grpc";
 
 service Mixturka {
   // GetRecipes retrieves a list of all recipes

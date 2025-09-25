@@ -16,15 +16,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 
-	"github.com/vostelmakh/mixturka/src/application/processor/brew"
-	"github.com/vostelmakh/mixturka/src/application/processor/recipe"
-	"github.com/vostelmakh/mixturka/src/application/server"
-	"github.com/vostelmakh/mixturka/src/infrastructure/db"
-	mixturkaGrpc "github.com/vostelmakh/mixturka/src/infrastructure/grpc"
-	"github.com/vostelmakh/mixturka/src/infrastructure/kafka"
-	"github.com/vostelmakh/mixturka/src/infrastructure/repository"
-	"github.com/vostelmakh/mixturka/src/infrastructure/rest/middlewares"
-	"github.com/vostelmakh/mixturka/src/infrastructure/rest/routes"
+	"github.com/vostelmakh/mixturka/internal/application/processor/brew"
+	"github.com/vostelmakh/mixturka/internal/application/processor/recipe"
+	"github.com/vostelmakh/mixturka/internal/application/server"
+	"github.com/vostelmakh/mixturka/internal/infrastructure/db"
+	mixturkaGrpc "github.com/vostelmakh/mixturka/internal/infrastructure/grpc"
+	"github.com/vostelmakh/mixturka/internal/infrastructure/kafka"
+	"github.com/vostelmakh/mixturka/internal/infrastructure/repository"
+	"github.com/vostelmakh/mixturka/internal/infrastructure/rest/middlewares"
+	"github.com/vostelmakh/mixturka/internal/infrastructure/rest/routes"
 )
 
 func main() {

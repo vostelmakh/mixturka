@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	domainErrors "github.com/vostelmakh/mixturka/src/domain/errors"
+	domainErrors "github.com/vostelmakh/mixturka/internal/domain/errors"
 )
 
 func ErrorHandler() gin.HandlerFunc {

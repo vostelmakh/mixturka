@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/vostelmakh/mixturka/src/domain"
-	"github.com/vostelmakh/mixturka/src/infrastructure/repository"
+	"github.com/vostelmakh/mixturka/internal/domain"
+	"github.com/vostelmakh/mixturka/internal/infrastructure/repository"
 )
 
 type Processor struct {

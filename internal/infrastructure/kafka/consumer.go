@@ -6,7 +6,7 @@ import (
 
 	"github.com/IBM/sarama"
 
-	"github.com/vostelmakh/mixturka/src/application/processor/recipe"
+	"github.com/vostelmakh/mixturka/internal/application/processor/recipe"
 )
 
 const TopicBabushkaRecipeV1 = "babushka.recipes.v1"

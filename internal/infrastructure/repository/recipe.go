@@ -4,12 +4,14 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/vostelmakh/mixturka/src/domain"
+	"github.com/vostelmakh/mixturka/internal/domain"
 )
 
 type RecipeRepository struct {
 	db *sql.DB
 }
+
+var _ RecipeRepositoryInterface = (*RecipeRepository)(nil)
 
 func NewRecipeRepository(db *sql.DB) *RecipeRepository {
 	return &RecipeRepository{db: db}

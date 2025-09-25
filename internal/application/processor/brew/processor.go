@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/vostelmakh/mixturka/src/domain"
-	"github.com/vostelmakh/mixturka/src/infrastructure/repository"
+	"github.com/vostelmakh/mixturka/internal/domain"
+	"github.com/vostelmakh/mixturka/internal/infrastructure/repository"
 )
 
 const (
@@ -19,10 +19,10 @@ type Ingredient struct {
 }
 
 type Processor struct {
-	repo *repository.RecipeRepository
+	repo repository.RecipeRepositoryInterface
 }
 
-func NewGRPCProcessor(repo *repository.RecipeRepository) *Processor {
+func NewGRPCProcessor(repo repository.RecipeRepositoryInterface) *Processor {
 	return &Processor{
 		repo: repo,
 	}

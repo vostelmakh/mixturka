@@ -3,9 +3,9 @@ package server
 import (
 	"context"
 
-	"github.com/vostelmakh/mixturka/src/application/processor/brew"
-	"github.com/vostelmakh/mixturka/src/application/processor/recipe"
-	mixturkaGrpc "github.com/vostelmakh/mixturka/src/infrastructure/grpc"
+	"github.com/vostelmakh/mixturka/internal/application/processor/brew"
+	"github.com/vostelmakh/mixturka/internal/application/processor/recipe"
+	mixturkaGrpc "github.com/vostelmakh/mixturka/internal/infrastructure/grpc"
 )
 
 type MixturkaServer struct {

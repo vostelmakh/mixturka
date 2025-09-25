@@ -416,7 +416,7 @@ const file_mixturka_proto_rawDesc = "" +
 	"\bMixturka\x12I\n" +
 	"\n" +
 	"GetRecipes\x12\x1b.mixturka.GetRecipesRequest\x1a\x1c.mixturka.GetRecipesResponse\"\x00\x12@\n" +
-	"\aBrewPot\x12\x18.mixturka.PotBrewRequest\x1a\x19.mixturka.PotBrewResponse\"\x00B\x1cZ\x1a../src/infrastructure/grpcb\x06proto3"
+	"\aBrewPot\x12\x18.mixturka.PotBrewRequest\x1a\x19.mixturka.PotBrewResponse\"\x00B\x1cZ\x1a../internal/infrastructure/grpcb\x06proto3"
 
 var (
 	file_mixturka_proto_rawDescOnce sync.Once

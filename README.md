@@ -75,7 +75,7 @@ docker-compose up  --build  -d
 ### Swagger Implementation
 
 ```bash
-swag init -g src/infrastructure/rest/routes/routes.go
+swag init -g internal/infrastructure/rest/routes/routes.go
 ```
 
 To visualize the swagger documentation on local use
